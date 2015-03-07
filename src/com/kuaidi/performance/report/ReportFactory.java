@@ -8,7 +8,7 @@ public class ReportFactory {
 		
 		private static ReportFactory instance = null;
 		
-		//私有化构造方法，确保单例
+		//私有化构造方法，确保单例,未考虑多线程情况
 		private ReportFactory(){}
 		
 		public  static ReportFactory getInstance()
@@ -20,6 +20,24 @@ public class ReportFactory {
 				return instance;
 		}
 		
+		public Report getSummaryReport()
+		{
+			return new SummaryReport();
+		}
 		
+		public Report getTimeReport()
+		{
+			return new TimeReport();
+		}
+		
+		public Report getFrequencyReport()
+		{
+			return new FrequencyReport();
+		}
+		
+		public Report getABReport()
+		{
+			return new ABReport();
+		}
 		
 }
