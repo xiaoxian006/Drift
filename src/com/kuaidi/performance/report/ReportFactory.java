@@ -1,4 +1,6 @@
 package com.kuaidi.performance.Report;
+
+
 /**
  * 输出性能报告的工厂类
  * @author Ray

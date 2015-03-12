@@ -1,5 +1,6 @@
 package com.kuaidi.performance.Report;
 
+
 public class SummaryReport extends Report{
 
 	@Override
