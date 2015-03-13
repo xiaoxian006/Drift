@@ -12,7 +12,7 @@ public class TimerFactory {
 	//获取单次计时器
 	public static Timer getSingleTimer()
 	{
-		return new TimerImpl();
+		return new SingleTimer();
 	}
 	
 	//获取计时器簇

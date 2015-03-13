@@ -10,7 +10,7 @@ public class ReportFactory {
 		
 		private static ReportFactory instance = null;
 		
-		//私有化构造方法，确保单例,未考虑多线程情况
+		//私有化构造方法，确保单例,未考虑多线程情况 
 		private ReportFactory(){}
 		
 		public  static ReportFactory getInstance()

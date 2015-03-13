@@ -9,10 +9,5 @@ public class FrequencyReport extends Report{
 		
 	}
 
-	@Override
-	public void format() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
