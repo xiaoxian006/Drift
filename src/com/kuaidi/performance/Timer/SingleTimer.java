@@ -6,7 +6,7 @@ package com.kuaidi.performance.Timer;
  * @author Ray
  *
  */
-public class TimerImpl implements Timer{
+public class SingleTimer implements Timer{
 
 	//定时器开始时间
 	private long START_TIME;
