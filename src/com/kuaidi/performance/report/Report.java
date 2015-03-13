@@ -1,13 +1,12 @@
 package com.kuaidi.performance.Report;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
@@ -20,8 +19,35 @@ public abstract class Report {
 		
 		private Logger logger = Logger.getLogger(Report.class);
 	
-		//打印报告
+		//格式化报告
 		public abstract void publish();
+		
+		//打印报告
+		public void write(String path,String report)
+		{
+			try {
+				
+				File file = new File(path);
+				if(!file.exists())
+				{
+					file.createNewFile();
+				}
+				else 
+				{
+					file.delete();
+					file.createNewFile();
+				}
+				FileOutputStream fos = new FileOutputStream(file);
+				fos.write(report.getBytes());
+				fos.close();
+			} catch (FileNotFoundException e) {
+				// TODO: handle exception
+				logger.error(e.getMessage());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		//载入报告模板
 		public String load()
@@ -36,7 +62,7 @@ public abstract class Report {
 				
 				logger.error(TempleteName + "报告模板文件不存在");
 				
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getMessage());
 			}
 			return templete;
 		}
