@@ -75,11 +75,13 @@ public abstract class Report {
 		
 		
 		
-		public String getTempleteName() {
+		public String getTempleteName() 
+		{
 			return TempleteName;
 		}
 
-		public void setTempleteName(String templeteName) {
+		public void setTempleteName(String templeteName) 
+		{
 			TempleteName = templeteName;
 		}
 

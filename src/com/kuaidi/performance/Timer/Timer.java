@@ -14,6 +14,13 @@ public interface Timer {
 	//代码块结束时刻
 	public long end();
 	
+	//计时暂停
+	public void stop();
+	
+	//恢复计时
+	public void resume();
+	
 	//代码块耗时
 	public long costTime();
+	
 }

@@ -22,4 +22,16 @@ public class TimerItems implements Timer{
 		return 0;
 	}
 
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
