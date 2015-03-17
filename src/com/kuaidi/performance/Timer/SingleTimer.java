@@ -2,12 +2,12 @@ package com.kuaidi.performance.Timer;
 
 import org.apache.log4j.Logger;
 
-
 /**
- * 计时器的实现类
+ * 单次计时器的实现类
  * @author Ray
  *
  */
+
 public class SingleTimer implements Timer{
 	
 	Logger logger = Logger.getLogger(SingleTimer.class);

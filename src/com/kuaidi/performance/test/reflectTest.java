@@ -21,12 +21,12 @@ public class ReflectTest {
 			method.invoke(test);
 		}
 		
-		timer1.end();
+		timer1.stop();
 		System.out.println(timer1.costTime());
 		
 		
 		Timer timer2 = TimerFactory.getSingleTimer();
-		timer2.start();
+		timer2.resume();
 		for(int i=0;i<1;i++)
 		{
 			test.method1();

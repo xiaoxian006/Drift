@@ -1,8 +1,18 @@
 package com.kuaidi.performance.Timer;
 
+import java.util.ArrayList;
+
+/**
+ * 计时器簇的实现类
+ * @author Ray
+ *
+ */
+
 public class TimerItems implements Timer{
 
+	private ArrayList<Long> timeList;
 	
+	private long tmpTime;
 	
 	@Override
 	public long start() {
@@ -25,13 +35,14 @@ public class TimerItems implements Timer{
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub
-		
+		long time = System.currentTimeMillis() - tmpTime;
+		timeList.add(time);
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+		tmpTime = System.currentTimeMillis();
 	}
 
 }
