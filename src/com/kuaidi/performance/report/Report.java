@@ -25,8 +25,8 @@ public abstract class Report {
 		//打印报告
 		public void write(String path,String report)
 		{
-			try {
-				
+			try 
+			{
 				File file = new File(path);
 				if(!file.exists())
 				{
@@ -40,12 +40,10 @@ public abstract class Report {
 				FileOutputStream fos = new FileOutputStream(file);
 				fos.write(report.getBytes());
 				fos.close();
-			} catch (FileNotFoundException e) {
-				// TODO: handle exception
-				logger.error(e.getMessage());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("文件输出异常");
+				logger.error(e.getMessage());
 			}
 		}
 		
