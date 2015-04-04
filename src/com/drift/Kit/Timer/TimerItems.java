@@ -1,4 +1,4 @@
-package com.kuaidi.performance.Timer;
+package com.drift.Kit.Timer;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class TimerItems implements Timer{
 	}
 
 	@Override
-	public void stop() {
+	public void interrupt() {
 		// TODO Auto-generated method stub
 		long time = System.currentTimeMillis() - tmpTime;
 		timeList.add(time);

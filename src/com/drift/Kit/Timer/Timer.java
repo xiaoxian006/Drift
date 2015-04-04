@@ -1,4 +1,4 @@
-package com.kuaidi.performance.Timer;
+package com.drift.Kit.Timer;
 
 /**
  * 计时器调用接口
@@ -15,7 +15,7 @@ public interface Timer {
 	public long end();
 	
 	//计时暂停
-	public void stop();
+	public void interrupt();
 	
 	//恢复计时
 	public void resume();

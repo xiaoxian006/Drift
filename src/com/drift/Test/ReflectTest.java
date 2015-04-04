@@ -1,10 +1,11 @@
-package com.kuaidi.performance.test;
+package com.drift.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.kuaidi.performance.Timer.Timer;
-import com.kuaidi.performance.Timer.TimerFactory;
+import com.drift.Kit.Timer.Timer;
+import com.drift.Kit.Timer.TimerFactory;
+
 
 public class ReflectTest {
 	
@@ -21,7 +22,7 @@ public class ReflectTest {
 			method.invoke(test);
 		}
 		
-		timer1.stop();
+		timer1.interrupt();
 		System.out.println(timer1.costTime());
 		
 		

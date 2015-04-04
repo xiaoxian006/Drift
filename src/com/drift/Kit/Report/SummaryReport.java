@@ -1,4 +1,4 @@
-package com.kuaidi.performance.Report;
+package com.drift.Kit.Report;
 
 
 public class SummaryReport extends Report{

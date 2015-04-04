@@ -1,7 +1,9 @@
-package com.kuaidi.performance.test;
+package com.drift.Test;
 
-import com.kuaidi.performance.Timer.Timer;
-import com.kuaidi.performance.Timer.TimerFactory;
+import com.drift.Kit.Timer.Timer;
+import com.drift.Kit.Timer.TimerFactory;
+
+
 
 public class TimerTest {
 

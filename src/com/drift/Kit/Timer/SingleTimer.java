@@ -1,4 +1,4 @@
-package com.kuaidi.performance.Timer;
+package com.drift.Kit.Timer;
 
 import org.apache.log4j.Logger;
 
@@ -68,7 +68,7 @@ public class SingleTimer implements Timer{
 	}
 
 	@Override
-	public void stop() {
+	public void interrupt() {
 		// TODO Auto-generated method stub
 		INTR_START_TIME = System.currentTimeMillis();
 	}

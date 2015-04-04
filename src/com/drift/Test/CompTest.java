@@ -1,4 +1,4 @@
-package com.kuaidi.performance.test;
+package com.drift.Test;
 
 public class CompTest {
 	
