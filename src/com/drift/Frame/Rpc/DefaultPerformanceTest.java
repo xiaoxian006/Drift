@@ -19,6 +19,9 @@ public abstract class DefaultPerformanceTest extends Thread{
 		//需要测试的接口
 		public abstract void invoke();
 		
+		//只知道测试接口的方法和名字
+		public abstract void invoke(String className,String methodName);
+		
 		//后置操作
 		public abstract void teardown();
 		
