@@ -1,10 +1,17 @@
 package com.drift.Frame.Rpc;
+
+import com.drift.Kit.Timer.Timer;
+import com.drift.Kit.Timer.TimerFactory;
+
 /**
  * 性能测试模板类
  * @author Ray
  *
  */
 public abstract class DefaultPerformanceTest extends Thread{
+	
+		//计时器
+		Timer timer = TimerFactory.getSingleTimer();
 	
 		//前置操作
 		public abstract void setup();
@@ -20,7 +27,11 @@ public abstract class DefaultPerformanceTest extends Thread{
 		{
 			setup();
 			
+			timer.start();
+			
 			invoke();
+			
+			timer.end();
 			
 			teardown();
 		}

@@ -1,4 +1,4 @@
-package com.drift.Frame;
+package com.drift.Frame.Rpc;
 /**
  * 测试框架设置类
  * @author Ray
