@@ -20,7 +20,27 @@ public abstract class DefaultPerformanceTest extends Thread{
 		public abstract void invoke();
 		
 		//只知道测试接口的方法和名字
-		public abstract void invoke(String className,String methodName);
+		public void invoke(String className,String methodName)
+		{
+			try {
+				
+				Class newclass = Class.forName(className);
+				
+				Object target = newclass.newInstance();
+				
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		
 		//后置操作
 		public abstract void teardown();
