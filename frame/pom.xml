@@ -23,9 +23,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>com.loc.drift</groupId>
-    	<artifactId>kit</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
+      <groupId>com.loc.drift</groupId>
+      <artifactId>kit</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

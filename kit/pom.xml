@@ -9,7 +9,6 @@
   </parent>
   <groupId>com.loc.drift</groupId>
   <artifactId>kit</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>kit</name>
   <url>http://maven.apache.org</url>
   <properties>
