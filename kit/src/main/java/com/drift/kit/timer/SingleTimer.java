@@ -24,16 +24,14 @@ public class SingleTimer implements Timer {
 	// 定时器中断结束时间
 	private long INTR_END_TIME = 0;
 
-	public long start() {
+	public void start() {
 		// TODO Auto-generated method stub
 		START_TIME = System.currentTimeMillis();
-		return START_TIME;
 	}
 
-	public long end() {
+	public void end() {
 		// TODO Auto-generated method stub
 		END_TIME = System.currentTimeMillis();
-		return END_TIME;
 	}
 
 	public long costTime() {

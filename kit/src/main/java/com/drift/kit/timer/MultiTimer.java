@@ -14,14 +14,12 @@ public class MultiTimer implements Timer{
 	
 	private long tmpTime;
 	
-	public long start() {
+	public void start() {
 		// TODO Auto-generated method stub
-		return 0;
 	}
 
-	public long end() {
+	public void end() {
 		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	public long costTime() {

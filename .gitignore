@@ -3,3 +3,9 @@
 
 *.log
 /bin/
+
+.settings/org.eclipse.core.resources.prefs
+
+*.prefs
+
+.project

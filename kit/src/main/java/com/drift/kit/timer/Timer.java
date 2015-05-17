@@ -9,16 +9,16 @@ package com.drift.kit.timer;
 public interface Timer {
 	
 	//代码块开始时刻
-	public long start();
+	public void start();
 	
 	//代码块结束时刻
-	public long end();
+	public void end();
 	
-	//计时暂停
-	public void suspend();
-	
-	//恢复计时
-	public void resume();
+//	//计时暂停
+//	public void suspend();
+//	
+//	//恢复计时
+//	public void resume();
 	
 	//代码块耗时
 	public long costTime();
