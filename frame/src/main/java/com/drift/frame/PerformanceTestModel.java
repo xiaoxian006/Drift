@@ -53,29 +53,6 @@ public abstract class PerformanceTestModel extends Thread {
 	public abstract void invoke();
 
 	/**
-	 * 只知道测试接口的方法和名字
-	 */
-	public void invoke(String className, String methodName) {
-		try {
-
-			Class newclass = Class.forName(className);
-
-			Object target = newclass.newInstance();
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
 	 * 判断结果是否正确
 	 * 
 	 * @param tar
@@ -116,6 +93,8 @@ public abstract class PerformanceTestModel extends Thread {
 			timer.start();
 			invoke();
 			timer.end();
+//			if(timer.costTime() > 0)
+//			System.out.println(timer.costTime());
 			//判断expect是否存在
 			if (expect != null) {
 				if (Assert.assertCorrect(expect, actual)) {

@@ -14,28 +14,34 @@ public abstract class Executer {
 
 	private Logger logger = Logger.getLogger(Executer.class);
 
+	// 设定调用接口
+	public abstract String setExecuterName();
+
 	// 线程数量
 	private int ThreadNum;
-	
-	//持续时间
+
+	// 持续时间
 	private long duration_time;
 
 	private static Configuration conf = new Configuration();
 
 	private static ArrayList<PerformanceTestModel> ptestList = new ArrayList<PerformanceTestModel>();
-	//设定调用接口
+
+	// 设定调用接口
 	public abstract PerformanceTestModel setInvokeClass();
-	
+
 	/**
 	 * 导入执行器需要的参数
 	 * 
 	 * @param conf
 	 *            Configuration类
-	 * @param threadNum 并发线程数
-	 * @param duration_time 持续时间，单位为秒
+	 * @param threadNum
+	 *            并发线程数
+	 * @param duration_time
+	 *            持续时间，单位为秒
 	 * @throws ReflectiveOperationException
 	 */
-	public Executer(Configuration conf, int threadNum , long duration_time) {
+	public Executer(Configuration conf, int threadNum, long duration_time) {
 		Executer.conf = conf;
 		this.ThreadNum = threadNum;
 		this.duration_time = duration_time;
@@ -103,33 +109,39 @@ public abstract class Executer {
 					ratio_time += timer.getRATIO_TIME(ratio);
 					correct_times += ptest.getCorrect_times();
 					rt_times += ptest.getRt_times();
-					if(conf.getSetting("ratio") != null){
+					if (conf.getSetting("ratio") != null) {
 						ratio = Double.parseDouble(conf.getSetting("ratio"));
 					}
 				}
+				System.out.println("--------------" + setExecuterName() + "----------------");
+				System.out.println("线程数 : " + ThreadNum);
+				System.out.println("持续时间 : " + duration_time + "s");
 				System.out.println("Request Times : " + times + " , "
-						+ "QPS : " + times * 1000 / time + " , " + "Avg Time : "
-						+ time / times + "ms , " + "Max Time : " + max_time
-						+ "ms , " + (int)(ratio*100) + "% Request returns in : "
-						+ ratio_time / ThreadNum
-						+ " ms , " + "retCodeWrong Num:"
-						+ (times - correct_times) + " , "
+						+ "QPS : " + times * 1000 / time + " , "
+						+ "Avg Time : " + time / times + "ms , "
+						+ "Max Time : " + max_time + "ms , "
+						+ (int) (ratio * 100) + "% Request returns in : "
+						+ ratio_time / ThreadNum + " ms , "
+						+ "retCodeWrong Num:" + (times - correct_times) + " , "
 						+ "retAcqWrong Num : " + (times - rt_times));
 				break;
 			}
 		}
 	}
-	private void logConfig(){
+
+	private void logConfig() {
 		Properties pro = new Properties();
 		pro.put("log4j.rootLogger", "INFO,R");
-	    pro.put("log4j.appender.R", "org.apache.log4j.RollingFileAppender");
-//        pro.put("log4j.appender.R.File", "logs/invoke_" + POOL_SIZE + "_threads.log");
-	    pro.put("log4j.appender.R.File", "logs/drift.log");
-        pro.put("log4j.appender.R.MaxFileSize", "10000KB");
-        pro.put("log4j.appender.R.MaxBackupIndex", "20");	
-        pro.put("log4j.appender.R.Threshold", "INFO");
-        pro.put("log4j.appender.R.layout", "org.apache.log4j.PatternLayout");
-        pro.put("log4j.appender.R.layout.ConversionPattern", "%n[%d{HH:mm:ss}] [%p] %m");
-        PropertyConfigurator.configure(pro);
+		pro.put("log4j.appender.R", "org.apache.log4j.RollingFileAppender");
+		// pro.put("log4j.appender.R.File", "logs/invoke_" + POOL_SIZE +
+		// "_threads.log");
+		pro.put("log4j.appender.R.File", "logs/drift.log");
+		pro.put("log4j.appender.R.MaxFileSize", "10000KB");
+		pro.put("log4j.appender.R.MaxBackupIndex", "20");
+		pro.put("log4j.appender.R.Threshold", "INFO");
+		pro.put("log4j.appender.R.layout", "org.apache.log4j.PatternLayout");
+		pro.put("log4j.appender.R.layout.ConversionPattern",
+				"%n[%d{HH:mm:ss}] [%p] %m");
+		PropertyConfigurator.configure(pro);
 	}
 }
