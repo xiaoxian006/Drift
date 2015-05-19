@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.ietf.jgss.Oid;
 
 import com.drift.kit.timer.LoopTimer;
 
@@ -14,20 +15,32 @@ public abstract class Executer {
 
 	private Logger logger = Logger.getLogger(Executer.class);
 
-	// 设定调用接口
+	/**
+	 * 设定执行器名字
+	 * 
+	 * @return 这个返回的名字将会在测试报告中出现
+	 */
 	public abstract String setExecuterName();
 
-	// 线程数量
+	/**
+	 * 线程数量
+	 */
 	private int ThreadNum;
 
-	// 持续时间
+	/**
+	 * 持续时间
+	 */
 	private long duration_time;
 
 	private static Configuration conf = new Configuration();
 
 	private static ArrayList<PerformanceTestModel> ptestList = new ArrayList<PerformanceTestModel>();
 
-	// 设定调用接口
+	/**
+	 * 设定调用接口
+	 * 
+	 * @return 请返回实现的PerformanceTestModel类
+	 */
 	public abstract PerformanceTestModel setInvokeClass();
 
 	/**
@@ -91,13 +104,6 @@ public abstract class Executer {
 		Client_Pool.shutdown();
 		// 监听任务是否完成
 		while (true) {
-			long max_time = 0;
-			long time = 0;
-			long times = 0;
-			long correct_times = 0;
-			long rt_times = 0;
-			long ratio_time = 0;
-			double ratio = 0.9;
 			if (Client_Pool.isTerminated()) {
 				for (PerformanceTestModel ptest : ptestList) {
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
@@ -113,20 +119,29 @@ public abstract class Executer {
 						ratio = Double.parseDouble(conf.getSetting("ratio"));
 					}
 				}
-				System.out.println("--------------" + setExecuterName() + "----------------");
-				System.out.println("线程数 : " + ThreadNum);
-				System.out.println("持续时间 : " + duration_time + "s");
-				System.out.println("Request Times : " + times + " , "
-						+ "QPS : " + times * 1000 / time + " , "
-						+ "Avg Time : " + time / times + "ms , "
-						+ "Max Time : " + max_time + "ms , "
-						+ (int) (ratio * 100) + "% Request returns in : "
-						+ ratio_time / ThreadNum + " ms , "
-						+ "retCodeWrong Num:" + (times - correct_times) + " , "
-						+ "retAcqWrong Num : " + (times - rt_times));
+				boolean needPrint = conf.getSetting("needprint") == null ? true
+						: Boolean.parseBoolean(conf.getSetting("needprint"));
+				if (needPrint) {
+					printConsole();
+				}
+
 				break;
 			}
 		}
+	}
+
+	private void printConsole() {
+		System.out.println("--------------" + setExecuterName()
+				+ "----------------");
+		System.out.println("线程数 : " + ThreadNum);
+		System.out.println("持续时间 : " + duration_time + "s");
+		System.out.println("Request Times : " + times + " , " + "QPS : "
+				+ times * 1000 / time + " , " + "Avg Time : " + time / times
+				+ "ms , " + "Max Time : " + max_time + "ms , "
+				+ (int) (ratio * 100) + "% Request returns in : " + ratio_time
+				/ ThreadNum + " ms , " + "retCodeWrong Num:"
+				+ (times - correct_times) + " , " + "retAcqWrong Num : "
+				+ (times - rt_times));
 	}
 
 	private void logConfig() {
@@ -144,4 +159,13 @@ public abstract class Executer {
 				"%n[%d{HH:mm:ss}] [%p] %m");
 		PropertyConfigurator.configure(pro);
 	}
+
+	// 相关指标
+	private long max_time = 0;
+	private long time = 0;
+	private long times = 0;
+	private long correct_times = 0;
+	private long rt_times = 0;
+	private long ratio_time = 0;
+	private double ratio = 0.9;
 }

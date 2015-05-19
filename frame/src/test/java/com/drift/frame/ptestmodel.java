@@ -17,14 +17,6 @@ private Logger logger = Logger.getLogger(ptestmodel.class);
 		for(int i=0;i<1000;i++){
 			i++;
 			logger.info(i);
-//			for(int j=0;j<1000;j++){
-//				j++;
-//				for(int n=0;n<1000;n++){
-//					n++;
-//					double tmp = Math.sqrt(i*j*n);
-//					System.out.println(Double.toString(tmp));
-//				}
-//			}
 		}
 	}
 

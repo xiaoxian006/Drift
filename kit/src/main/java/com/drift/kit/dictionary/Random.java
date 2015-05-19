@@ -21,6 +21,19 @@ public class Random {
 	}
 
 	/**
+	 * 随机double类型
+	 * 
+	 * @param min
+	 *            随机下限
+	 * @param max
+	 *            随机上限
+	 * @return
+	 */
+	public static double randomDouble(double min, double max) {
+		return random.nextDouble() * (max - min) + min;
+	}
+
+	/**
 	 * 在词表中随机取值
 	 * 
 	 * @param list
