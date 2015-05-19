@@ -3,38 +3,25 @@ package com.drift.frame.rpc;
 import java.util.Properties;
 
 /**
- * 测试框架设置类
+ * 测试框架设置
+ * 
  * @author Ray
  *
  */
 public class Configuration {
-	
-	//线程数量
-	private int ThreadNum;
-	
-	//dubbo配置文件
-	private String dubbo_path;
+	// 用户自定义配置
+	private Properties properties = new Properties();
 
-	public int getThreadNum() {
-		return ThreadNum;
+	public void load(Properties properties) {
+		this.properties = properties;
 	}
 
-	public void setThreadNum(int threadNum) {
-		ThreadNum = threadNum;
+	public String getSetting(String key) {
+		return this.properties.getProperty(key);
 	}
 
-	public String getDubbo_path() {
-		return dubbo_path;
+	public void setSetting(String key, String value) {
+		properties.setProperty(key, value);
 	}
 
-	public void setDubbo_path(String dubbo_path) {
-		this.dubbo_path = dubbo_path;
-	}
-	
-	public void load(Properties properties)
-	{
-		ThreadNum = (Integer) properties.get("ThreadNum");
-		
-	}
-	
 }

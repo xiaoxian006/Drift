@@ -15,26 +15,43 @@ public class LoopTimer implements Timer {
 
 	Logger logger = Logger.getLogger(LoopTimer.class);
 
-	// 定时器开始时间
+	// 计时器单次循环开始时间
 	private long START_TIME;
-	// 定时器结束时间
+	// 计时器单次循环结束时间
 	private long END_TIME;
 	// 耗时时间list
-	private ArrayList<Long> timeList;
+	private ArrayList<Long> timeList = new ArrayList<Long>();
 	// 平均时间
-	private long AVG_TIME;
+	private long AVG_TIME = 0;
 	// 最小时间
-	private long MIN_TIME;
+	private long MIN_TIME = 0;
 	// 最大时间
-	private long MAX_TIME;
+	private long MAX_TIME = 0;
 	// 定制百分比的时间
 	private long RATIO_TIME;
+	// 计时器循环次数
+	private long LOOP_TIMES;
+	// 计时器总时间
+	private long TIME = 0;
 
-	public ArrayList<Long> getTimeList() {
-		return timeList;
+	// 包内可见，确保调用方法是通过工厂调用
+	LoopTimer() {
+	}
+
+	public long getTIME() {
+		for (long time : timeList) {
+			TIME += time;
+		}
+		return TIME;
+	}
+
+	public long getLOOP_TIMES() {
+		LOOP_TIMES = timeList.size();
+		return LOOP_TIMES;
 	}
 
 	public long getAVG_TIME() {
+		AVG_TIME = TIME / LOOP_TIMES;
 		return AVG_TIME;
 	}
 
@@ -57,6 +74,13 @@ public class LoopTimer implements Timer {
 
 	public void end() {
 		END_TIME = System.currentTimeMillis();
+		// 判断最大时间是否变更
+		if (MAX_TIME < costTime()) {
+			MAX_TIME = costTime();
+		}
+		if (MIN_TIME > costTime()) {
+			MAX_TIME = costTime();
+		}
 		timeList.add(costTime());
 	}
 

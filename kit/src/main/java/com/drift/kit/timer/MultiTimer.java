@@ -4,16 +4,21 @@ import java.util.ArrayList;
 
 /**
  * 计时器簇
+ * 
  * @author Ray
  *
  */
 
-public class MultiTimer implements Timer{
+public class MultiTimer implements Timer {
 
 	private ArrayList<Long> timeList;
-	
+
 	private long tmpTime;
-	
+
+	// 包内可见，确保调用方法是通过工厂调用
+	MultiTimer() {
+	}
+
 	public void start() {
 		// TODO Auto-generated method stub
 	}

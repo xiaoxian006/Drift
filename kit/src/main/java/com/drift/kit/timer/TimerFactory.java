@@ -2,7 +2,7 @@ package com.drift.kit.timer;
 
 /**
  * 计时器工厂
- * 
+ * 可以获取单次计时器，计时器簇和循环计时器
  * @author Ray
  *
  */

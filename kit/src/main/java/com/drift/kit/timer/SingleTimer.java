@@ -3,7 +3,7 @@ package com.drift.kit.timer;
 import org.apache.log4j.Logger;
 
 /**
- * 单次计时器 
+ * 单次计时器
  * 
  * 用来进行单次测试活动的计时，该计时器可以挂起和恢复，主要进行代码块耗时的分析
  * 
@@ -23,6 +23,10 @@ public class SingleTimer implements Timer {
 	private long SUSPEND_TIME = 0;
 	// 定时器中断结束时间
 	private long INTR_END_TIME = 0;
+
+	// 包内可见，确保调用方法是通过工厂调用
+	SingleTimer() {
+	}
 
 	public void start() {
 		// TODO Auto-generated method stub
