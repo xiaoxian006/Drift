@@ -35,8 +35,7 @@ public abstract class Executer {
 	 * @param duration_time 持续时间，单位为秒
 	 * @throws ReflectiveOperationException
 	 */
-	public Executer(Configuration conf, int threadNum , long duration_time)
-			throws ReflectiveOperationException {
+	public Executer(Configuration conf, int threadNum , long duration_time) {
 		Executer.conf = conf;
 		this.ThreadNum = threadNum;
 		this.duration_time = duration_time;
