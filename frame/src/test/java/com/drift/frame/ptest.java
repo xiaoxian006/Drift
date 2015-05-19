@@ -1,8 +1,8 @@
 package com.drift.frame;
 
-import com.drift.frame.rpc.Configuration;
-import com.drift.frame.rpc.Executer;
-import com.drift.frame.rpc.PerformanceTestModel;
+import com.drift.frame.Configuration;
+import com.drift.frame.Executer;
+import com.drift.frame.PerformanceTestModel;
 
 public class ptest {
 	public static void main(String[] args) {

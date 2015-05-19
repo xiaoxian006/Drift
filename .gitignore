@@ -23,3 +23,5 @@ frame/.classpath
 *.jar
 
 *.jar
+
+*.prefs

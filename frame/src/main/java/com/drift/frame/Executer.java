@@ -1,4 +1,4 @@
-package com.drift.frame.rpc;
+package com.drift.frame;
 
 import java.util.ArrayList;
 import java.util.Properties;
@@ -51,7 +51,11 @@ public abstract class Executer {
 			try {
 				tmp = ptest.getClass().newInstance();
 				ptestList.add(tmp);
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				logger.error("can't get instance of Performance Test");
+				logger.error(e.getCause());
+			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				logger.error("can't get instance of Performance Test");
 				logger.error(e.getCause());

@@ -1,4 +1,4 @@
-package com.drift.frame.rpc;
+package com.drift.frame;
 
 import org.apache.log4j.Logger;
 

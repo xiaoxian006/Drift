@@ -1,6 +1,6 @@
 package com.drift.frame;
 
-import com.drift.frame.rpc.PerformanceTestModel;
+import com.drift.frame.PerformanceTestModel;
 
 public class ptestmodel extends PerformanceTestModel {
 
