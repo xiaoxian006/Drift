@@ -93,8 +93,6 @@ public abstract class PerformanceTestModel extends Thread {
 			timer.start();
 			invoke();
 			timer.end();
-//			if(timer.costTime() > 0)
-//			System.out.println(timer.costTime());
 			//判断expect是否存在
 			if (expect != null) {
 				if (Assert.assertCorrect(expect, actual)) {
