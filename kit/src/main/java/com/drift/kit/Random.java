@@ -1,4 +1,4 @@
-package com.drift.kit.dictionary;
+package com.drift.kit;
 
 import java.util.ArrayList;
 
