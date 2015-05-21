@@ -121,13 +121,24 @@ public abstract class Executer {
 				}
 				boolean needPrint = conf.getSetting("needprint") == null ? true
 						: Boolean.parseBoolean(conf.getSetting("needprint"));
+
 				if (needPrint) {
 					printConsole();
 				}
-
+				quota = new Quota(time, times, max_time, duration_time,
+						ratio_time, correct_times, rt_times);
 				break;
 			}
 		}
+	}
+
+	/**
+	 * 获取指标
+	 * 
+	 * @return Quota 指标类
+	 */
+	public Quota getQuota() {
+		return quota;
 	}
 
 	private void printConsole() {
@@ -168,4 +179,6 @@ public abstract class Executer {
 	private long rt_times = 0;
 	private long ratio_time = 0;
 	private double ratio = 0.9;
+	private Quota quota;
+
 }
