@@ -8,7 +8,8 @@ public class Quota {
 	private long rt_times = 0;
 	private long ratio_time = 0;
 	private double ratio = 0.9;
-	private long rt_time = times * 1000 / time;
+	private long rt_time = 0;
+	private long qps = 0;
 
 	public Quota(long time, long times, long max_time, double ratio,
 			long ratio_time, long correct_times, long rt_times) {
@@ -22,6 +23,7 @@ public class Quota {
 	}
 
 	public long getRt_time() {
+		rt_time = time / times;
 		return rt_time;
 	}
 
@@ -51,5 +53,10 @@ public class Quota {
 
 	public double getRatio() {
 		return ratio;
+	}
+
+	public long getQps() {
+		qps = times * 1000 / time;
+		return qps;
 	}
 }

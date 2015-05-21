@@ -5,16 +5,15 @@ import org.apache.log4j.Logger;
 import com.drift.frame.PerformanceTestModel;
 
 public class ptestmodel extends PerformanceTestModel {
-private Logger logger = Logger.getLogger(ptestmodel.class);
-	
+	private Logger logger = Logger.getLogger(ptestmodel.class);
 	@Override
 	public void setup() {
-		System.out.println("start");
+//		System.out.println("start" + Thread.currentThread().getId());
 	}
 
 	@Override
 	public void invoke() {
-		for(int i=0;i<1000;i++){
+		for (int i = 0; i < 10; i++) {
 			i++;
 			logger.info(i);
 		}
@@ -22,7 +21,7 @@ private Logger logger = Logger.getLogger(ptestmodel.class);
 
 	@Override
 	public void teardown() {
-		System.out.println("end");
+//		System.out.println("end" + Thread.currentThread().getId());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -107,7 +108,7 @@ public abstract class Executer {
 			if (Client_Pool.isTerminated()) {
 				for (PerformanceTestModel ptest : ptestList) {
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
-					time += timer.getTIME();
+					time += timer.getTIME()/ThreadNum;
 					times += timer.getLOOP_TIMES();
 					if (max_time < timer.getMAX_TIME()) {
 						max_time = timer.getMAX_TIME();
@@ -127,6 +128,12 @@ public abstract class Executer {
 				}
 				quota = new Quota(time, times, max_time, duration_time,
 						ratio_time, correct_times, rt_times);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			}
 		}

@@ -5,22 +5,31 @@ import com.drift.frame.Executer;
 import com.drift.frame.PerformanceTestModel;
 
 public class ptest {
+	private static long max_qps = 0;
 	public static void main(String[] args) {
-		Configuration conf = new Configuration();
-		conf.setSetting("ratio", "0.99");
-		Executer ptestExecuter;
-		ptestExecuter = new Executer(conf,1,1){
-			@Override
-			public PerformanceTestModel setInvokeClass() {
-				// TODO Auto-generated method stub
-				return new ptestmodel();
-			}
+		for(int i=5;i<10;i+=2){
+			Configuration conf = new Configuration();
+			conf.setSetting("ratio", "0.99");
+			Executer ptestExecuter;
+			ptestExecuter = new Executer(conf,i,5){
+				@Override
+				public PerformanceTestModel setInvokeClass() {
+					// TODO Auto-generated method stub
+					return new ptestmodel();
+				}
 
-			@Override
-			public String setExecuterName() {
-				// TODO Auto-generated method stub
-				return "Regular Test";
-			}};
-		ptestExecuter.run();
+				@Override
+				public String setExecuterName() {
+					// TODO Auto-generated method stub
+					return "Regular Test";
+				}};
+			ptestExecuter.run();
+			if(max_qps < ptestExecuter.getQuota().getQps()){
+				max_qps = ptestExecuter.getQuota().getQps();
+			}else if(max_qps > ptestExecuter.getQuota().getQps()*1.1){
+				break;
+			}
+		}
+		
 	}
 }
