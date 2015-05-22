@@ -108,7 +108,7 @@ public abstract class Executer {
 			if (Client_Pool.isTerminated()) {
 				for (PerformanceTestModel ptest : ptestList) {
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
-					time += timer.getTIME()/ThreadNum;
+					time += timer.getTIME() / ThreadNum;
 					times += timer.getLOOP_TIMES();
 					if (max_time < timer.getMAX_TIME()) {
 						max_time = timer.getMAX_TIME();
@@ -120,13 +120,17 @@ public abstract class Executer {
 						ratio = Double.parseDouble(conf.getSetting("ratio"));
 					}
 				}
-				boolean needPrint = conf.getSetting("needprint") == null ? true
-						: Boolean.parseBoolean(conf.getSetting("needprint"));
-
-				if (needPrint) {
+				boolean needPrintConsole = conf.getSetting("needprint") == null ? true
+						: Boolean.parseBoolean(conf.getSetting("needprintConsle"));
+				boolean needPrintLog = conf.getSetting("needprint") == null ? true
+						: Boolean.parseBoolean(conf.getSetting("needprintLog"));
+				if (needPrintConsole) {
 					printConsole();
 				}
-				quota = new Quota(time, times, max_time, duration_time,
+				if (needPrintLog) {
+					printLog();
+				}
+				quota = new Quota(ThreadNum, time, times, max_time, duration_time,
 						ratio_time, correct_times, rt_times);
 				try {
 					Thread.sleep(1000);
@@ -154,12 +158,24 @@ public abstract class Executer {
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
 		System.out.println("Request Times : " + times + " , " + "QPS : "
-				+ times * 1000 / time + " , " + "Avg Time : " + time / times
+				+ times * 1000 / time + " , " + "Avg Time : " + time  * ThreadNum / times
 				+ "ms , " + "Max Time : " + max_time + "ms , "
 				+ (int) (ratio * 100) + "% Request returns in : " + ratio_time
 				/ ThreadNum + " ms , " + "retCodeWrong Num:"
 				+ (times - correct_times) + " , " + "retAcqWrong Num : "
 				+ (times - rt_times));
+	}
+
+	private void printLog() {
+		logger.info("--------------" + setExecuterName() + "----------------");
+		logger.info("线程数 : " + ThreadNum);
+		logger.info("持续时间 : " + duration_time + "s");
+		logger.info("Request Times : " + times + " , " + "QPS : " + times
+				* 1000 / time + " , " + "Avg Time : " + time  * ThreadNum / times + "ms , "
+				+ "Max Time : " + max_time + "ms , " + (int) (ratio * 100)
+				+ "% Request returns in : " + ratio_time / ThreadNum + " ms , "
+				+ "retCodeWrong Num:" + (times - correct_times) + " , "
+				+ "retAcqWrong Num : " + (times - rt_times));
 	}
 
 	private void logConfig() {

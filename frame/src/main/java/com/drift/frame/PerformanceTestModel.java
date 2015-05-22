@@ -50,20 +50,27 @@ public abstract class PerformanceTestModel extends Thread {
 	/**
 	 * 需要测试的接口
 	 */
-	public abstract void invoke();
+	public abstract void invoke() throws Exception;
 
 	/**
 	 * 判断结果是否正确
 	 * 
-	 * @param tar
-	 *            目标值
-	 * @param src
+	 * @param expect
+	 *            期望值
+	 * @param actual
 	 *            实际值
 	 */
 	public void setCorrectJudge(Object expect, Object actual) {
 		this.expect = expect;
 		this.actual = actual;
 	}
+	
+	/**
+	 * 判断返回值是否正确
+	 * @param judge
+	 * @return
+	 */
+	public abstract boolean Assert(Object... judge);
 
 	/**
 	 * 判断结果是否为空
@@ -91,7 +98,12 @@ public abstract class PerformanceTestModel extends Thread {
 		}
 		while (System.currentTimeMillis() - begin < time * 1000) {
 			timer.start();
-			invoke();
+			try {
+				invoke();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			timer.end();
 			//判断expect是否存在
 			if (expect != null) {

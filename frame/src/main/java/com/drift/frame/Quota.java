@@ -1,6 +1,7 @@
 package com.drift.frame;
 
 public class Quota {
+	private int ThreadNum;
 	private long max_time = 0;
 	private long time = 0;
 	private long times = 0;
@@ -11,8 +12,9 @@ public class Quota {
 	private long rt_time = 0;
 	private long qps = 0;
 
-	public Quota(long time, long times, long max_time, double ratio,
+	public Quota(int ThreadNum,long time, long times, long max_time, double ratio,
 			long ratio_time, long correct_times, long rt_times) {
+		this.ThreadNum = ThreadNum;
 		this.time = time;
 		this.times = times;
 		this.max_time = max_time;
@@ -23,7 +25,7 @@ public class Quota {
 	}
 
 	public long getRt_time() {
-		rt_time = time / times;
+		rt_time = time  * ThreadNum / times;
 		return rt_time;
 	}
 

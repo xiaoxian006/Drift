@@ -24,4 +24,10 @@ public class ptestmodel extends PerformanceTestModel {
 //		System.out.println("end" + Thread.currentThread().getId());
 	}
 
+	@Override
+	public boolean Assert(Object... judge) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }
