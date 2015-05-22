@@ -16,6 +16,12 @@ import com.drift.kit.timer.TimerFactory;
 public abstract class PerformanceTestModel extends Thread {
 
 	private Logger logger = Logger.getLogger(PerformanceTestModel.class);
+	
+	private long begin;
+
+	public void setBegin(long begin) {
+		this.begin = begin;
+	}
 
 	// 计时器
 	private LoopTimer timer = (LoopTimer) TimerFactory.getLoopTimer();
@@ -34,8 +40,8 @@ public abstract class PerformanceTestModel extends Thread {
 	// 请求正确数
 	private long correct_times = 0;
 
-	// 请求返回数
-	private long rt_times = 0;
+	// 请求未返回数
+	private long not_rt_times = 0;
 
 	// 判断值
 	private Object expect;
@@ -90,7 +96,6 @@ public abstract class PerformanceTestModel extends Thread {
 	// 启动函数
 	public void run() {
 		setup();
-		long begin = System.currentTimeMillis();
 		//持续时间不能为0
 		if (time == 0) {
 			logger.error("time can't be null");
@@ -102,17 +107,15 @@ public abstract class PerformanceTestModel extends Thread {
 				invoke();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			timer.end();
-			//判断expect是否存在
-			if (expect != null) {
-				if (Assert.assertCorrect(expect, actual)) {
-					correct_times++;
+				not_rt_times++;
+			}finally{
+				timer.end();
+				//判断expect是否存在
+				if (expect != null) {
+					if (Assert.assertCorrect(expect, actual)) {
+						correct_times++;
+					}
 				}
-			}
-			if (Assert.assertNotNull(target)) {
-				rt_times++;
 			}
 		}
 		teardown();
@@ -122,7 +125,7 @@ public abstract class PerformanceTestModel extends Thread {
 		return correct_times;
 	}
 
-	public long getRt_times() {
-		return rt_times;
+	public long getNot_rt_times() {
+		return not_rt_times;
 	}
 }

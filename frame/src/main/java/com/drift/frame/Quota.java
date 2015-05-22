@@ -58,7 +58,7 @@ public class Quota {
 	}
 
 	public long getQps() {
-		qps = times * 1000 / time;
+		qps = times * 1000 * ThreadNum / time;
 		return qps;
 	}
 }

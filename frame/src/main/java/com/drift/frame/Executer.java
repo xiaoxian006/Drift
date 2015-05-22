@@ -35,7 +35,7 @@ public abstract class Executer {
 
 	private static Configuration conf = new Configuration();
 
-	private static ArrayList<PerformanceTestModel> ptestList = new ArrayList<PerformanceTestModel>();
+	private ArrayList<PerformanceTestModel> ptestList = new ArrayList<PerformanceTestModel>();
 
 	/**
 	 * 设定调用接口
@@ -59,8 +59,12 @@ public abstract class Executer {
 		Executer.conf = conf;
 		this.ThreadNum = threadNum;
 		this.duration_time = duration_time;
+		long begin = System.currentTimeMillis();
 		for (int i = 0; i < ThreadNum; i++) {
-			ptestList.add(setInvokeClass());
+			PerformanceTestModel ptest = setInvokeClass();
+			ptest.setBegin(begin);
+			ptest.setTime(duration_time);
+			ptestList.add(ptest);
 		}
 		logger.info("exexcuter init sucess!");
 	}
@@ -99,7 +103,6 @@ public abstract class Executer {
 		}
 		ExecutorService Client_Pool = Executors.newFixedThreadPool(ThreadNum);
 		for (PerformanceTestModel ptest : ptestList) {
-			ptest.setTime(duration_time);
 			Client_Pool.submit(ptest);
 		}
 		Client_Pool.shutdown();
@@ -108,20 +111,21 @@ public abstract class Executer {
 			if (Client_Pool.isTerminated()) {
 				for (PerformanceTestModel ptest : ptestList) {
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
-					time += timer.getTIME() / ThreadNum;
+					time += timer.getTIME();
 					times += timer.getLOOP_TIMES();
 					if (max_time < timer.getMAX_TIME()) {
 						max_time = timer.getMAX_TIME();
 					}
 					ratio_time += timer.getRATIO_TIME(ratio);
 					correct_times += ptest.getCorrect_times();
-					rt_times += ptest.getRt_times();
+					biz_fail_times += ptest.getNot_rt_times();
 					if (conf.getSetting("ratio") != null) {
 						ratio = Double.parseDouble(conf.getSetting("ratio"));
 					}
 				}
 				boolean needPrintConsole = conf.getSetting("needprint") == null ? true
-						: Boolean.parseBoolean(conf.getSetting("needprintConsle"));
+						: Boolean.parseBoolean(conf
+								.getSetting("needprintConsle"));
 				boolean needPrintLog = conf.getSetting("needprint") == null ? true
 						: Boolean.parseBoolean(conf.getSetting("needprintLog"));
 				if (needPrintConsole) {
@@ -130,14 +134,9 @@ public abstract class Executer {
 				if (needPrintLog) {
 					printLog();
 				}
-				quota = new Quota(ThreadNum, time, times, max_time, duration_time,
-						ratio_time, correct_times, rt_times);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				quota = new Quota(ThreadNum, time, times, max_time,
+						duration_time, ratio_time, correct_times,
+						biz_fail_times);
 				break;
 			}
 		}
@@ -157,13 +156,15 @@ public abstract class Executer {
 				+ "----------------");
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
+		System.out.println("持续时间 : " + time*1.0/1000/ThreadNum + "s");
 		System.out.println("Request Times : " + times + " , " + "QPS : "
-				+ times * 1000 / time + " , " + "Avg Time : " + time  * ThreadNum / times
-				+ "ms , " + "Max Time : " + max_time + "ms , "
-				+ (int) (ratio * 100) + "% Request returns in : " + ratio_time
-				/ ThreadNum + " ms , " + "retCodeWrong Num:"
-				+ (times - correct_times) + " , " + "retAcqWrong Num : "
-				+ (times - rt_times));
+				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
+				+ time / times + "ms , " + "Max Time : " + max_time + "ms , "
+				+ (int) (ratio * 100) + "% Request returns in : "
+				+ ratio_time / ThreadNum + " ms , " + "retCodeWrong Num:"
+				+ (times - correct_times) + " , " + "biz failed : "
+				+ biz_fail_times + " , "
+				+ (int) ((double) biz_fail_times / (double) times * 100) + "%");
 	}
 
 	private void printLog() {
@@ -171,11 +172,13 @@ public abstract class Executer {
 		logger.info("线程数 : " + ThreadNum);
 		logger.info("持续时间 : " + duration_time + "s");
 		logger.info("Request Times : " + times + " , " + "QPS : " + times
-				* 1000 / time + " , " + "Avg Time : " + time  * ThreadNum / times + "ms , "
-				+ "Max Time : " + max_time + "ms , " + (int) (ratio * 100)
-				+ "% Request returns in : " + ratio_time / ThreadNum + " ms , "
-				+ "retCodeWrong Num:" + (times - correct_times) + " , "
-				+ "retAcqWrong Num : " + (times - rt_times));
+				* 1000 * ThreadNum / time + " , " + "Avg Time : " + time
+				/ times + "ms , " + "Max Time : " + max_time + "ms , "
+				+ (int) (ratio * 100) + "% Request returns in : " + ratio_time
+				/ ThreadNum + " ms , " + "retCodeWrong Num:"
+				+ (times - correct_times) + " , " + "biz failed : "
+				+ biz_fail_times + " , "
+				+ (int) ((double) biz_fail_times / (double) times * 100) + "%");
 	}
 
 	private void logConfig() {
@@ -199,7 +202,7 @@ public abstract class Executer {
 	private long time = 0;
 	private long times = 0;
 	private long correct_times = 0;
-	private long rt_times = 0;
+	private long biz_fail_times = 0;
 	private long ratio_time = 0;
 	private double ratio = 0.9;
 	private Quota quota;

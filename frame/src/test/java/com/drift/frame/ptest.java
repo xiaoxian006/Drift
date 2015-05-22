@@ -7,7 +7,7 @@ import com.drift.frame.PerformanceTestModel;
 public class ptest {
 	private static long max_qps = 0;
 	public static void main(String[] args) {
-		for(int i=5;i<10;i+=2){
+		for(int i=20;i<30;i+=2){
 			Configuration conf = new Configuration();
 			conf.setSetting("ratio", "0.99");
 			Executer ptestExecuter;
@@ -22,7 +22,7 @@ public class ptest {
 				public String setExecuterName() {
 					// TODO Auto-generated method stub
 					return "Regular Test";
-				}};
+				}};                                                                          
 			ptestExecuter.run();
 			if(max_qps < ptestExecuter.getQuota().getQps()){
 				max_qps = ptestExecuter.getQuota().getQps();
