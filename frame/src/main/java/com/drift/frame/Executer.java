@@ -35,14 +35,14 @@ public abstract class Executer {
 
 	private static Configuration conf = new Configuration();
 
-	private ArrayList<PerformanceTestModel> ptestList = new ArrayList<PerformanceTestModel>();
+	private ArrayList<TestModel> ptestList = new ArrayList<TestModel>();
 
 	/**
 	 * 设定调用接口
 	 * 
 	 * @return 请返回实现的PerformanceTestModel类
 	 */
-	public abstract PerformanceTestModel setInvokeClass();
+	public abstract TestModel setInvokeClass();
 
 	/**
 	 * 导入执行器需要的参数
@@ -61,7 +61,7 @@ public abstract class Executer {
 		this.duration_time = duration_time;
 		long begin = System.currentTimeMillis();
 		for (int i = 0; i < ThreadNum; i++) {
-			PerformanceTestModel ptest = setInvokeClass();
+			TestModel ptest = setInvokeClass();
 			ptest.setBegin(begin);
 			ptest.setTime(duration_time);
 			ptestList.add(ptest);
@@ -69,9 +69,9 @@ public abstract class Executer {
 		logger.info("exexcuter init sucess!");
 	}
 
-	public Executer(PerformanceTestModel ptest) {
+	public Executer(TestModel ptest) {
 		for (int i = 0; i < ThreadNum; i++) {
-			PerformanceTestModel tmp;
+			TestModel tmp;
 			try {
 				tmp = ptest.getClass().newInstance();
 				ptestList.add(tmp);
@@ -102,14 +102,14 @@ public abstract class Executer {
 			throw new NullPointerException();
 		}
 		ExecutorService Client_Pool = Executors.newFixedThreadPool(ThreadNum);
-		for (PerformanceTestModel ptest : ptestList) {
+		for (TestModel ptest : ptestList) {
 			Client_Pool.submit(ptest);
 		}
 		Client_Pool.shutdown();
 		// 监听任务是否完成
 		while (true) {
 			if (Client_Pool.isTerminated()) {
-				for (PerformanceTestModel ptest : ptestList) {
+				for (TestModel ptest : ptestList) {
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
 					time += timer.getTIME();
 					times += timer.getLOOP_TIMES();
@@ -156,11 +156,10 @@ public abstract class Executer {
 				+ "----------------");
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
-		System.out.println("持续时间 : " + time*1.0/1000/ThreadNum + "s");
 		System.out.println("Request Times : " + times + " , " + "QPS : "
 				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
-				+ time / times + "ms , " + "Max Time : " + max_time + "ms , "
-				+ (int) (ratio * 100) + "% Request returns in : "
+				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
+				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
 				+ ratio_time / ThreadNum + " ms , " + "retCodeWrong Num:"
 				+ (times - correct_times) + " , " + "biz failed : "
 				+ biz_fail_times + " , "
@@ -171,11 +170,11 @@ public abstract class Executer {
 		logger.info("--------------" + setExecuterName() + "----------------");
 		logger.info("线程数 : " + ThreadNum);
 		logger.info("持续时间 : " + duration_time + "s");
-		logger.info("Request Times : " + times + " , " + "QPS : " + times
-				* 1000 * ThreadNum / time + " , " + "Avg Time : " + time
-				/ times + "ms , " + "Max Time : " + max_time + "ms , "
-				+ (int) (ratio * 100) + "% Request returns in : " + ratio_time
-				/ ThreadNum + " ms , " + "retCodeWrong Num:"
+		logger.info("Request Times : " + times + " , " + "QPS : "
+				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
+				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
+				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
+				+ ratio_time / ThreadNum + " ms , " + "retCodeWrong Num:"
 				+ (times - correct_times) + " , " + "biz failed : "
 				+ biz_fail_times + " , "
 				+ (int) ((double) biz_fail_times / (double) times * 100) + "%");

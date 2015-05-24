@@ -2,9 +2,9 @@ package com.drift.frame;
 
 import org.apache.log4j.Logger;
 
-import com.drift.frame.PerformanceTestModel;
+import com.drift.frame.TestModel;
 
-public class ptestmodel extends PerformanceTestModel {
+public class ptestmodel extends TestModel {
 	private Logger logger = Logger.getLogger(ptestmodel.class);
 	@Override
 	public void setup() {

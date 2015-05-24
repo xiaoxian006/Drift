@@ -8,15 +8,15 @@ import com.drift.kit.timer.Timer;
 import com.drift.kit.timer.TimerFactory;
 
 /**
- * 性能测试模板
+ * 性能测试载荷
  * 
  * @author Ray
  *
  */
-public abstract class PerformanceTestModel extends Thread {
+public abstract class TestModel extends Thread {
 
-	private Logger logger = Logger.getLogger(PerformanceTestModel.class);
-	
+	private Logger logger = Logger.getLogger(TestModel.class);
+	//开始时间
 	private long begin;
 
 	public void setBegin(long begin) {
