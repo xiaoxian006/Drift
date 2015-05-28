@@ -1,9 +1,5 @@
 package com.drift.frame;
 
-import com.drift.frame.Configuration;
-import com.drift.frame.Executer;
-import com.drift.frame.TestModel;
-
 public class ptest {
 	private static long max_qps = 0;
 	public static void main(String[] args) {

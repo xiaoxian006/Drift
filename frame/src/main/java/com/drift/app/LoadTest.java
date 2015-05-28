@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.drift.frame.Configuration;
 import com.drift.frame.Executer;
 import com.drift.frame.TestModel;
-import com.drift.frame.ptestmodel;
 
 public abstract class LoadTest {
 	private static long max_qps = 0;
