@@ -1,28 +1,18 @@
 package com.drift.frame;
 
+import com.drift.kit.timer.LoopTimer;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-import org.ietf.jgss.Oid;
+public abstract class Executor {
 
-import com.drift.kit.timer.LoopTimer;
-
-public abstract class Executer {
-
-	private Logger logger = Logger.getLogger(Executer.class);
-
-	/**
-	 * 设定执行器名字
-	 * 
-	 * @return 这个返回的名字将会在测试报告中出现
-	 */
-	public abstract String setExecuterName();
-
+	private static Configuration conf = new Configuration();
+	private Logger logger = Logger.getLogger(Executor.class);
 	/**
 	 * 线程数量
 	 */
@@ -32,31 +22,29 @@ public abstract class Executer {
 	 * 持续时间
 	 */
 	private long duration_time;
-
-	private static Configuration conf = new Configuration();
-
 	private ArrayList<TestModel> ptestList = new ArrayList<TestModel>();
-
-	/**
-	 * 设定调用接口
-	 * 
-	 * @return 请返回实现的PerformanceTestModel类
-	 */
-	public abstract TestModel setInvokeClass();
+	// 相关指标
+	private long max_time = 0;
+	private long time = 0;
+	private long times = 0;
+	private long correct_times = 0;
+	private long biz_fail_times = 0;
+	private long ratio_time = 0;
+	private double ratio = 0.9;
+	private Quota quota;
 
 	/**
 	 * 导入执行器需要的参数
-	 * 
+	 *
 	 * @param conf
 	 *            Configuration类
 	 * @param threadNum
 	 *            并发线程数
 	 * @param duration_time
 	 *            持续时间，单位为秒
-	 * @throws ReflectiveOperationException
 	 */
-	public Executer(Configuration conf, int threadNum, long duration_time) {
-		Executer.conf = conf;
+	public Executor(Configuration conf, int threadNum, long duration_time) {
+		Executor.conf = conf;
 		this.ThreadNum = threadNum;
 		this.duration_time = duration_time;
 		long begin = System.currentTimeMillis();
@@ -69,7 +57,7 @@ public abstract class Executer {
 		logger.info("exexcuter init sucess!");
 	}
 
-	public Executer(TestModel ptest) {
+	public Executor(TestModel ptest) {
 		for (int i = 0; i < ThreadNum; i++) {
 			TestModel tmp;
 			try {
@@ -89,8 +77,22 @@ public abstract class Executer {
 	}
 
 	/**
+	 * 设定执行器名字
+	 *
+	 * @return 这个返回的名字将会在测试报告中出现
+	 */
+	public abstract String setExecuterName();
+
+	/**
+	 * 设定调用接口
+	 *
+	 * @return 请返回实现的PerformanceTestModel类
+	 */
+	public abstract TestModel setInvokeClass();
+
+	/**
 	 * 启动函数
-	 * 
+	 *
 	 * @throws NullPointerException
 	 *             ThreadNum为0会抛出异常
 	 */
@@ -144,7 +146,7 @@ public abstract class Executer {
 
 	/**
 	 * 获取指标
-	 * 
+	 *
 	 * @return Quota 指标类
 	 */
 	public Quota getQuota() {
@@ -195,15 +197,5 @@ public abstract class Executer {
 				"%n[%d{HH:mm:ss}] [%p] %m");
 		PropertyConfigurator.configure(pro);
 	}
-
-	// 相关指标
-	private long max_time = 0;
-	private long time = 0;
-	private long times = 0;
-	private long correct_times = 0;
-	private long biz_fail_times = 0;
-	private long ratio_time = 0;
-	private double ratio = 0.9;
-	private Quota quota;
 
 }

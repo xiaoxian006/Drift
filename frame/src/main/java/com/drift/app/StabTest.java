@@ -1,12 +1,14 @@
 package com.drift.app;
 
-import java.util.HashMap;
-
 import com.drift.frame.Configuration;
-import com.drift.frame.Executer;
+import com.drift.frame.Executor;
 import com.drift.frame.TestModel;
 
 public abstract class StabTest {
+
+	private Configuration conf = new Configuration();
+	// 稳定性线程数
+	private int ThreadNum;
 
 	// 测试载荷
 	public abstract TestModel setTestModel();
@@ -17,17 +19,12 @@ public abstract class StabTest {
 	// 稳定需要的qps
 	public abstract int setQps();
 
-	private Configuration conf = new Configuration();
-
-	// 稳定性线程数
-	private int ThreadNum;
-
 	// 主函数
 	public void run() {
 		for (int i = 1; i < 30; i += 2) {
 			conf.setSetting("ratio", "0.99");
-			Executer ptestExecuter;
-			ptestExecuter = new Executer(conf, i, 600) {
+			Executor ptestExecutor;
+			ptestExecutor = new Executor(conf, i, 600) {
 				@Override
 				public TestModel setInvokeClass() {
 					// TODO Auto-generated method stub
@@ -40,15 +37,15 @@ public abstract class StabTest {
 					return setTestName();
 				}
 			};
-			ptestExecuter.run();
-			if (setQps() < ptestExecuter.getQuota().getQps()) {
+			ptestExecutor.run();
+			if (setQps() < ptestExecutor.getQuota().getQps()) {
 				ThreadNum = i;
 				break;
 			}
 		}
-		Executer ptestExecuter;
+		Executor ptestExecutor;
 		conf.setSetting("ratio", "0.99");
-		ptestExecuter = new Executer(conf, ThreadNum, 28800) {
+		ptestExecutor = new Executor(conf, ThreadNum, 28800) {
 			@Override
 			public TestModel setInvokeClass() {
 				// TODO Auto-generated method stub
@@ -61,7 +58,7 @@ public abstract class StabTest {
 				return setTestName();
 			}
 		};
-		ptestExecuter.run();
+		ptestExecutor.run();
 
 	}
 }

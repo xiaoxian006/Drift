@@ -6,8 +6,8 @@ public class ptest {
 		for(int i=20;i<100;i+=2){
 			Configuration conf = new Configuration();
 			conf.setSetting("ratio", "0.99");
-			Executer ptestExecuter;
-			ptestExecuter = new Executer(conf,i,5){
+			Executor ptestExecutor;
+			ptestExecutor = new Executor(conf, i, 5) {
 				@Override
 				public TestModel setInvokeClass() {
 					// TODO Auto-generated method stub
@@ -18,11 +18,12 @@ public class ptest {
 				public String setExecuterName() {
 					// TODO Auto-generated method stub
 					return "Regular Test";
-				}};                                                                          
-			ptestExecuter.run();
-			if(max_qps < ptestExecuter.getQuota().getQps()){
-				max_qps = ptestExecuter.getQuota().getQps();
-			}else if(max_qps > ptestExecuter.getQuota().getQps()*1.1){
+				}
+			};
+			ptestExecutor.run();
+			if (max_qps < ptestExecutor.getQuota().getQps()) {
+				max_qps = ptestExecutor.getQuota().getQps();
+			} else if (max_qps > ptestExecutor.getQuota().getQps() * 1.1) {
 				break;
 			}
 		}

@@ -1,10 +1,10 @@
 package com.drift.app;
 
-import java.util.HashMap;
-
 import com.drift.frame.Configuration;
-import com.drift.frame.Executer;
+import com.drift.frame.Executor;
 import com.drift.frame.TestModel;
+
+import java.util.HashMap;
 
 public abstract class LoadTest {
 	private static long max_qps = 0;
@@ -20,8 +20,8 @@ public abstract class LoadTest {
 		for(int i=20;i<30;i+=2){
 			Configuration conf = new Configuration();
 			conf.setSetting("ratio", "0.99");
-			Executer ptestExecuter;
-			ptestExecuter = new Executer(conf,i,1800){
+			Executor ptestExecutor;
+			ptestExecutor = new Executor(conf, i, 1800) {
 				@Override
 				public TestModel setInvokeClass() {
 					// TODO Auto-generated method stub
@@ -32,11 +32,11 @@ public abstract class LoadTest {
 				public String setExecuterName() {
 					// TODO Auto-generated method stub
 					return setTestName();
-				}};                                                                          
-			ptestExecuter.run();
-			if(max_qps < ptestExecuter.getQuota().getQps()){
-				max_qps = ptestExecuter.getQuota().getQps();
-			}else if(max_qps > ptestExecuter.getQuota().getQps()*1.11){
+				}};
+			ptestExecutor.run();
+			if (max_qps < ptestExecutor.getQuota().getQps()) {
+				max_qps = ptestExecutor.getQuota().getQps();
+			} else if (max_qps > ptestExecutor.getQuota().getQps() * 1.11) {
 				break;
 			}
 		}

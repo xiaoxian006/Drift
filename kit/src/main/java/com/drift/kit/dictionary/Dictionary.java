@@ -1,14 +1,19 @@
 package com.drift.kit.dictionary;
 
+import com.drift.kit.Random;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class Dictionary {
+
+	private Grammar grammar = new Grammar();
 
 	private ArrayList<String> descList = new ArrayList<String>();
 
@@ -16,10 +21,24 @@ public class Dictionary {
 	// 查询计数器
 	private int count = 0;
 
+	/**
+	 * 简单表式数据构造字典
+	 *
+	 * @param strings 字典字段
+	 */
 	public Dictionary(String... strings) {
 		for (int i = 0; i < strings.length; i++) {
 			descList.add(strings[i]);
 		}
+	}
+
+	/**
+	 * 复杂构造字典，映射为java类
+	 *
+	 * @param grammar 字典语法
+	 */
+	public Dictionary(Grammar grammar) {
+		this.grammar = grammar;
 	}
 
 	/**
@@ -68,11 +87,17 @@ public class Dictionary {
 			count++;
 			return words.get(count - 1);
 		}
-		case 1:
-			return words.get(Random.randomInt(0, words.size()));
-		default:
-			return words.get(Random.randomInt(0, words.size()));
+			case 1:
+				return words.get(Random.randomInt(0, words.size()));
+			default:
+				throw new NoSuchElementException("No Such Lookup Type");
 		}
 	}
-	
+
+	/**
+	 * 根据grammar生成字典
+	 */
+	public void make(){
+
+	}
 }
