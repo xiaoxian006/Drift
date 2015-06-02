@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
+import com.drift.kit.Random;
+
 public class Dictionary {
+
+	private Logger logger = Logger.getLogger(Dictionary.class);
 
 	private ArrayList<String> descList = new ArrayList<String>();
 
@@ -17,6 +23,10 @@ public class Dictionary {
 	private int count = 0;
 
 	public Dictionary(String... strings) {
+		if (strings.length == 0) {
+			logger.error("Dictionary's desc can't be null");
+			throw new NullPointerException();
+		}
 		for (int i = 0; i < strings.length; i++) {
 			descList.add(strings[i]);
 		}
@@ -50,6 +60,10 @@ public class Dictionary {
 		}
 	}
 
+	public void lazyLoad(String filepath) {
+
+	}
+
 	/**
 	 * 从词表中查询单词
 	 * 
@@ -58,11 +72,15 @@ public class Dictionary {
 	 * @return
 	 */
 	public HashMap<String, String> lookup(int type) {
+		if (words.size() == 0) {
+			logger.error("dictionary is null");
+			throw new NullPointerException();
+		}
+
 		switch (type) {
 		case 0: {
-			//若计数器达到词表上限，清零计数器
-			if(count == words.size())
-			{
+			// 若计数器达到词表上限，清零计数器
+			if (count == words.size()) {
 				count = 0;
 			}
 			count++;
@@ -74,5 +92,8 @@ public class Dictionary {
 			return words.get(Random.randomInt(0, words.size()));
 		}
 	}
-	
+
+//	public HashMap<String, String> lookup(){
+//		
+//	}
 }
