@@ -1,4 +1,4 @@
-package com.drift.kit;
+package com.drift.kit.util;
 
 public class Assert {
 	/**
@@ -8,9 +8,7 @@ public class Assert {
 	 * @return
 	 */
 	public static boolean assertNotNull(Object object) {
-		if (object != null)
-			return true;
-		return false;
+		return object != null;
 	}
 	
 	/**
@@ -20,8 +18,6 @@ public class Assert {
 	 * @return
 	 */
 	public static boolean assertCorrect(Object expect , Object actual){
-		if (expect.equals(actual))
-			return true;
-		return false;
+		return expect.equals(actual);
 	}
 }

@@ -1,6 +1,6 @@
 package com.drift.kit.dictionary;
 
-import com.drift.kit.Random;
+import com.drift.kit.util.Random;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
