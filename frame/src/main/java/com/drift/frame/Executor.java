@@ -57,24 +57,24 @@ public abstract class Executor {
 		logger.info("exexcuter init sucess!");
 	}
 
-	public Executor(TestModel ptest) {
-		for (int i = 0; i < ThreadNum; i++) {
-			TestModel tmp;
-			try {
-				tmp = ptest.getClass().newInstance();
-				ptestList.add(tmp);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				logger.error("can't get instance of Performance Test");
-				logger.error(e.getCause());
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				logger.error("can't get instance of Performance Test");
-				logger.error(e.getCause());
-			}
-		}
-
-	}
+//	public Executor(TestModel ptest) {
+//		for (int i = 0; i < ThreadNum; i++) {
+//			TestModel tmp;
+//			try {
+//				tmp = ptest.getClass().newInstance();
+//				ptestList.add(tmp);
+//			} catch (InstantiationException e) {
+//				// TODO Auto-generated catch block
+//				logger.error("can't get instance of Performance Test");
+//				logger.error(e.getCause());
+//			} catch (IllegalAccessException e) {
+//				// TODO Auto-generated catch block
+//				logger.error("can't get instance of Performance Test");
+//				logger.error(e.getCause());
+//			}
+//		}
+//
+//	}
 
 	/**
 	 * 设定执行器名字

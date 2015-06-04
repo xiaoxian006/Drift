@@ -40,6 +40,7 @@ public class Random {
 	 *            词表
 	 * @return
 	 */
+	@Deprecated
 	public static Object randomInList(ArrayList<Object> list) {
 		return list.get(random.nextInt(list.size()));
 	}

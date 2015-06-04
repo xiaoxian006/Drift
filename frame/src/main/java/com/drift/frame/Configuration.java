@@ -12,6 +12,7 @@ public class Configuration {
 	// 用户自定义配置
 	private Properties properties = new Properties();
 
+	//导入自定义配置
 	public void load(Properties properties) {
 		this.properties = properties;
 	}

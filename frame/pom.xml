@@ -21,7 +21,7 @@
       <groupId>com.loc.drift</groupId>
       <artifactId>kit</artifactId>
       <version>0.9-SNAPSHOT</version>
-      <scope>test</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>

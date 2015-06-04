@@ -1,11 +1,10 @@
 package com.drift.frame;
 
-import org.apache.log4j.Logger;
-
-import com.drift.kit.Assert;
 import com.drift.kit.timer.LoopTimer;
 import com.drift.kit.timer.Timer;
 import com.drift.kit.timer.TimerFactory;
+import com.drift.kit.util.Assert;
+import org.apache.log4j.Logger;
 
 /**
  * 性能测试载荷
@@ -18,35 +17,30 @@ public abstract class TestModel extends Thread {
 	private Logger logger = Logger.getLogger(TestModel.class);
 	//开始时间
 	private long begin;
+	// 计时器
+	private LoopTimer timer = (LoopTimer) TimerFactory.getLoopTimer();
+	// 执行时间
+	private long time;
+	// 请求正确数
+	private long correct_times = 0;
+	// 请求未返回数
+	private long not_rt_times = 0;
+	// 判断值
+	private Object expect;
+	private Object actual;
+	private Object target;
 
 	public void setBegin(long begin) {
 		this.begin = begin;
 	}
 
-	// 计时器
-	private LoopTimer timer = (LoopTimer) TimerFactory.getLoopTimer();
-
 	public Timer getTimer() {
 		return timer;
 	}
 
-	// 执行时间
-	private long time;
-
 	public void setTime(long time) {
 		this.time = time;
 	}
-
-	// 请求正确数
-	private long correct_times = 0;
-
-	// 请求未返回数
-	private long not_rt_times = 0;
-
-	// 判断值
-	private Object expect;
-	private Object actual;
-	private Object target;
 
 	/**
 	 * 前置操作
