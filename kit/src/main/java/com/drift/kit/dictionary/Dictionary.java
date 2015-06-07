@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class Dictionary {
@@ -71,7 +72,7 @@ public class Dictionary {
 		case 1:
 			return words.get(Random.randomInt(0, words.size()));
 		default:
-			return words.get(Random.randomInt(0, words.size()));
+			return throw new NoSuchElementException();
 		}
 	}
 	
