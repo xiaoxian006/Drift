@@ -8,20 +8,25 @@ import java.util.HashMap;
 
 public abstract class LoadTest {
 	private static long max_qps = 0;
+	//设置起始线程数
+	public int StartThreadNum;
+
 	//测试载荷
 	public abstract TestModel setTestModel();
+
 	//测试名称
 	public abstract String setTestName();
+
 	//最优负载参数
 	public abstract HashMap<String, Double> setStrategy();
 
 	//主函数
 	public void run() {
-		for(int i=20;i<30;i+=2){
+		for (int i = StartThreadNum; i < Integer.MAX_VALUE; i += 1) {
 			Configuration conf = new Configuration();
 			conf.setSetting("ratio", "0.99");
 			Executor ptestExecutor;
-			ptestExecutor = new Executor(conf, i, 1800) {
+			ptestExecutor = new Executor(conf, i, 600) {
 				@Override
 				public TestModel setInvokeClass() {
 					// TODO Auto-generated method stub
@@ -41,5 +46,9 @@ public abstract class LoadTest {
 			}
 		}
 		
+	}
+
+	public void setStartThreadNum(int startThreadNum) {
+		StartThreadNum = startThreadNum;
 	}
 }

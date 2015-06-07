@@ -47,6 +47,17 @@ public abstract class TestModel extends Thread {
 	 */
 	public abstract void setup();
 
+
+	/**
+	 * 每次invoke1前的操作
+	 */
+	public abstract void pre_invoke();
+
+	/**
+	 * 每次invoke后的操作
+	 */
+	public abstract void post_invoke();
+
 	/**
 	 * 需要测试的接口
 	 */
@@ -96,6 +107,7 @@ public abstract class TestModel extends Thread {
 			throw new NullPointerException();
 		}
 		while (System.currentTimeMillis() - begin < time * 1000) {
+			pre_invoke();
 			timer.start();
 			try {
 				invoke();
@@ -111,6 +123,7 @@ public abstract class TestModel extends Thread {
 					}
 				}
 			}
+			post_invoke();
 		}
 		teardown();
 	}

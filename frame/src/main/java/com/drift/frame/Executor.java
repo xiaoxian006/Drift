@@ -57,25 +57,6 @@ public abstract class Executor {
 		logger.info("exexcuter init sucess!");
 	}
 
-//	public Executor(TestModel ptest) {
-//		for (int i = 0; i < ThreadNum; i++) {
-//			TestModel tmp;
-//			try {
-//				tmp = ptest.getClass().newInstance();
-//				ptestList.add(tmp);
-//			} catch (InstantiationException e) {
-//				// TODO Auto-generated catch block
-//				logger.error("can't get instance of Performance Test");
-//				logger.error(e.getCause());
-//			} catch (IllegalAccessException e) {
-//				// TODO Auto-generated catch block
-//				logger.error("can't get instance of Performance Test");
-//				logger.error(e.getCause());
-//			}
-//		}
-//
-//	}
-
 	/**
 	 * 设定执行器名字
 	 *
@@ -112,6 +93,7 @@ public abstract class Executor {
 		while (true) {
 			if (Client_Pool.isTerminated()) {
 				for (TestModel ptest : ptestList) {
+					//依次获取参数
 					LoopTimer timer = ((LoopTimer) ptest.getTimer());
 					time += timer.getTIME();
 					times += timer.getLOOP_TIMES();
@@ -158,11 +140,11 @@ public abstract class Executor {
 				+ "----------------");
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
-		System.out.println("Request Times : " + times + " , " + "QPS : "
+		System.out.println("Request Times : " + times + " , " + "TPS : "
 				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
 				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
 				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
-				+ ratio_time / ThreadNum + " ms , " + "retCodeWrong Num:"
+				+ ratio_time / ThreadNum + " ms , " + "incorrect Num:"
 				+ (times - correct_times) + " , " + "biz failed : "
 				+ biz_fail_times + " , "
 				+ (int) ((double) biz_fail_times / (double) times * 100) + "%");
@@ -172,11 +154,11 @@ public abstract class Executor {
 		logger.info("--------------" + setExecuterName() + "----------------");
 		logger.info("线程数 : " + ThreadNum);
 		logger.info("持续时间 : " + duration_time + "s");
-		logger.info("Request Times : " + times + " , " + "QPS : "
+		logger.info("Request Times : " + times + " , " + "TPS : "
 				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
 				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
 				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
-				+ ratio_time / ThreadNum + " ms , " + "retCodeWrong Num:"
+				+ ratio_time / ThreadNum + " ms , " + "incorrect Num:"
 				+ (times - correct_times) + " , " + "biz failed : "
 				+ biz_fail_times + " , "
 				+ (int) ((double) biz_fail_times / (double) times * 100) + "%");
