@@ -141,7 +141,7 @@ public abstract class Executor {
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
 		System.out.println("Request Times : " + times + " , " + "TPS : "
-				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
+				+ times / duration_time + " , " + "Avg Time : "
 				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
 				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
 				+ ratio_time / ThreadNum + " ms , " + "incorrect Num:"
@@ -155,7 +155,7 @@ public abstract class Executor {
 		logger.info("线程数 : " + ThreadNum);
 		logger.info("持续时间 : " + duration_time + "s");
 		logger.info("Request Times : " + times + " , " + "TPS : "
-				+ times * 1000 * ThreadNum / time + " , " + "Avg Time : "
+				+ times / duration_time + " , " + "Avg Time : "
 				+ time * 1.0 / times + "ms , " + "Max Time : " + max_time
 				+ "ms , " + (int) (ratio * 100) + "% Request returns in : "
 				+ ratio_time / ThreadNum + " ms , " + "incorrect Num:"

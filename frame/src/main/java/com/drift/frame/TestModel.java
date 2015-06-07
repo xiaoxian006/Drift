@@ -116,14 +116,14 @@ public abstract class TestModel extends Thread {
 				not_rt_times++;
 			}finally{
 				timer.end();
-				//判断expect是否存在
-				if (expect != null) {
-					if (Assert.assertCorrect(expect, actual)) {
-						correct_times++;
-					}
-				}
 			}
 			post_invoke();
+			//判断expect是否存在
+			if (expect != null) {
+				if (Assert.assertCorrect(expect, actual)) {
+					correct_times++;
+				}
+			}
 		}
 		teardown();
 	}
