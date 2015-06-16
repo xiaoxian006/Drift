@@ -10,6 +10,14 @@ public abstract class LoadTest {
 	private static long max_qps = 0;
 	//设置起始线程数
 	public int StartThreadNum;
+	//持续时间，设定默认时间为600s
+	public int time = 600;
+
+	// 构造函数
+	public LoadTest(int StartThreadNum, int LoadTime) {
+		this.StartThreadNum = StartThreadNum;
+		this.time = LoadTime;
+	}
 
 	//测试载荷
 	public abstract TestModel setTestModel();
@@ -26,7 +34,7 @@ public abstract class LoadTest {
 			Configuration conf = new Configuration();
 			conf.setSetting("ratio", "0.99");
 			Executor ptestExecutor;
-			ptestExecutor = new Executor(conf, i, 600) {
+			ptestExecutor = new Executor(conf, i, time) {
 				@Override
 				public TestModel setInvokeClass() {
 					// TODO Auto-generated method stub
@@ -34,18 +42,13 @@ public abstract class LoadTest {
 				}
 
 				@Override
-				public String setExecuterName() {
+				public String setExecutorName() {
 					// TODO Auto-generated method stub
 					return setTestName();
 				}};
 			ptestExecutor.run();
-			if (max_qps < ptestExecutor.getQuota().getQps()) {
-				max_qps = ptestExecutor.getQuota().getQps();
-			} else if (max_qps > ptestExecutor.getQuota().getQps() * 1.11) {
-				break;
-			}
 		}
-		
+
 	}
 
 	public void setStartThreadNum(int startThreadNum) {

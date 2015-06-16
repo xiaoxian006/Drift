@@ -22,6 +22,7 @@ public abstract class Executor {
 	 * 持续时间
 	 */
 	private long duration_time;
+
 	private ArrayList<TestModel> ptestList = new ArrayList<TestModel>();
 	// 相关指标
 	private long max_time = 0;
@@ -54,7 +55,7 @@ public abstract class Executor {
 			ptest.setTime(duration_time);
 			ptestList.add(ptest);
 		}
-		logger.info("exexcuter init sucess!");
+		logger.info("executor init sucess!");
 	}
 
 	/**
@@ -62,7 +63,7 @@ public abstract class Executor {
 	 *
 	 * @return 这个返回的名字将会在测试报告中出现
 	 */
-	public abstract String setExecuterName();
+	public abstract String setExecutorName();
 
 	/**
 	 * 设定调用接口
@@ -136,7 +137,7 @@ public abstract class Executor {
 	}
 
 	private void printConsole() {
-		System.out.println("--------------" + setExecuterName()
+		System.out.println("--------------" + setExecutorName()
 				+ "----------------");
 		System.out.println("线程数 : " + ThreadNum);
 		System.out.println("持续时间 : " + duration_time + "s");
@@ -151,7 +152,7 @@ public abstract class Executor {
 	}
 
 	private void printLog() {
-		logger.info("--------------" + setExecuterName() + "----------------");
+		logger.info("--------------" + setExecutorName() + "----------------");
 		logger.info("线程数 : " + ThreadNum);
 		logger.info("持续时间 : " + duration_time + "s");
 		logger.info("Request Times : " + times + " , " + "TPS : "

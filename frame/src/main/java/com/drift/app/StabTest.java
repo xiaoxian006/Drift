@@ -9,7 +9,16 @@ public abstract class StabTest {
 	private Configuration conf = new Configuration();
 	// 稳定性线程数
 	private int ThreadNum;
+	// 单位时间
 	private int TimeUnit;
+	// 稳定需要的qps
+	private int tps;
+
+	// 构造函数
+	public StabTest(int tps, int ThreadNum) {
+		this.tps = tps;
+		this.ThreadNum = ThreadNum;
+	}
 
 	// 测试载荷
 	public abstract StabTestModel setStabTestModel();
@@ -17,17 +26,14 @@ public abstract class StabTest {
 	// 测试名称
 	public abstract String setTestName();
 
-	// 稳定需要的qps
-	public abstract int setTps();
-
 	// 主函数
 	public void run() {
-		TimeUnit = 1000 / (setTps() / ThreadNum);
+		TimeUnit = 1000 / (tps / ThreadNum);
 		Executor ptestExecutor;
 		conf.setSetting("ratio", "0.99");
 		ptestExecutor = new Executor(conf, ThreadNum, 28800) {
 			@Override
-			public String setExecuterName() {
+			public String setExecutorName() {
 				return setTestName();
 			}
 

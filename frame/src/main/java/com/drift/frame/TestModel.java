@@ -3,7 +3,6 @@ package com.drift.frame;
 import com.drift.kit.timer.LoopTimer;
 import com.drift.kit.timer.Timer;
 import com.drift.kit.timer.TimerFactory;
-import com.drift.kit.util.Assert;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,10 +24,6 @@ public abstract class TestModel extends Thread {
 	private long correct_times = 0;
 	// 请求未返回数
 	private long not_rt_times = 0;
-	// 判断值
-	private Object expect;
-	private Object actual;
-	private Object target;
 
 	public void setBegin(long begin) {
 		this.begin = begin;
@@ -62,36 +57,12 @@ public abstract class TestModel extends Thread {
 	 * 需要测试的接口
 	 */
 	public abstract void invoke() throws Exception;
-
-	/**
-	 * 判断结果是否正确
-	 * 
-	 * @param expect
-	 *            期望值
-	 * @param actual
-	 *            实际值
-	 */
-	public void setCorrectJudge(Object expect, Object actual) {
-		this.expect = expect;
-		this.actual = actual;
-	}
 	
 	/**
 	 * 判断返回值是否正确
-	 * @param judge
 	 * @return
 	 */
-	public abstract boolean Assert(Object... judge);
-
-	/**
-	 * 判断结果是否为空
-	 * 
-	 * @param target
-	 *            实际值
-	 */
-	public void setNotNullJudge(Object target) {
-		this.target = target;
-	}
+	public abstract boolean Assert();
 
 	/**
 	 * 后置操作
@@ -118,11 +89,8 @@ public abstract class TestModel extends Thread {
 				timer.end();
 			}
 			post_invoke();
-			//判断expect是否存在
-			if (expect != null) {
-				if (Assert.assertCorrect(expect, actual)) {
-					correct_times++;
-				}
+			if (Assert()) {
+				correct_times++;
 			}
 		}
 		teardown();
