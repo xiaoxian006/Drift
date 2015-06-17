@@ -7,9 +7,8 @@ import com.drift.frame.TestModel;
 import java.util.HashMap;
 
 public abstract class LoadTest {
-	private static long max_qps = 0;
 	//设置起始线程数
-	public int StartThreadNum;
+	public int StartThreadNum = 1;
 	//持续时间，设定默认时间为600s
 	public int time = 600;
 

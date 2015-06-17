@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.loc.drift</groupId>
   <artifactId>frame</artifactId>
-  <version>0.9-SNAPSHOT</version>
+  <version>0.9.1-SNAPSHOT</version>
   <name>frame</name>
   <url>http://maven.apache.org</url>
   <properties>

@@ -14,10 +14,10 @@ public abstract class StabTest {
 	// 稳定需要的qps
 	private int tps;
 	// 持续时间
-		private int DurationTime = 8;
+	private int DurationTime = 8;
 
 	// 构造函数
-	public StabTest(int tps, int ThreadNum , int DurationTime) {
+	public StabTest(int tps, int ThreadNum, int DurationTime) {
 		this.tps = tps;
 		this.ThreadNum = ThreadNum;
 		this.DurationTime = DurationTime;
