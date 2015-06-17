@@ -28,8 +28,5 @@
     <defaultGoal>install</defaultGoal>
     <directory>${basedir}/target</directory>
     <finalName>${groupId}.${artifactId}-${version}</finalName>
-    <filters>
-      <filter></filter>
-    </filters>
   </build>
 </project>

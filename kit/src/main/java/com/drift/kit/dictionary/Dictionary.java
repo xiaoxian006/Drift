@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import com.drift.kit.util.Random;
+
 public class Dictionary {
 
 	private ArrayList<String> descList = new ArrayList<String>();
@@ -72,7 +74,7 @@ public class Dictionary {
 		case 1:
 			return words.get(Random.randomInt(0, words.size()));
 		default:
-			return throw new NoSuchElementException();
+			throw new NoSuchElementException();
 		}
 	}
 	

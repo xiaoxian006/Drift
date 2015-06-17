@@ -13,11 +13,14 @@ public abstract class StabTest {
 	private int TimeUnit;
 	// 稳定需要的qps
 	private int tps;
+	// 持续时间
+		private int DurationTime = 8;
 
 	// 构造函数
-	public StabTest(int tps, int ThreadNum) {
+	public StabTest(int tps, int ThreadNum , int DurationTime) {
 		this.tps = tps;
 		this.ThreadNum = ThreadNum;
+		this.DurationTime = DurationTime;
 	}
 
 	// 测试载荷
@@ -31,7 +34,7 @@ public abstract class StabTest {
 		TimeUnit = 1000 / (tps / ThreadNum);
 		Executor ptestExecutor;
 		conf.setSetting("ratio", "0.99");
-		ptestExecutor = new Executor(conf, ThreadNum, 28800) {
+		ptestExecutor = new Executor(conf, ThreadNum, DurationTime * 3600) {
 			@Override
 			public String setExecutorName() {
 				return setTestName();

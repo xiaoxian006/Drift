@@ -15,7 +15,7 @@ public class ptest {
 				}
 
 				@Override
-				public String setExecuterName() {
+				public String setExecutorName() {
 					// TODO Auto-generated method stub
 					return "Regular Test";
 				}
