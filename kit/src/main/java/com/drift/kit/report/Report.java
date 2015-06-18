@@ -53,7 +53,7 @@ public abstract class Report {
 			String templete = "";
 			try {
 				
-				templete =  new String(Files.readAllBytes(Paths.get("./config/report/" + TempleteName + ".html")));
+				templete =  new String(Files.readAllBytes(Paths.get("config/report/" + TempleteName + ".html")));
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

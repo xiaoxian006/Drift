@@ -42,7 +42,9 @@ public abstract class StabTest {
 
 			@Override
 			public TestModel setInvokeClass() {
-				return setStabTestModel();
+				StabTestModel model = setStabTestModel();
+				model.setTIME_UNIT(TimeUnit);
+				return model;
 			}
 		};
 		ptestExecutor.run();

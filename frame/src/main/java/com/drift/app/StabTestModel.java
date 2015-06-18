@@ -10,8 +10,8 @@ public abstract class StabTestModel extends TestModel {
 	private int TIME_UNIT;
 
 	// 稳定需要的qps
-	public void setTPS(int qps, int thread_num) {
-		TIME_UNIT = 1000 * thread_num / qps;
+	public void setTIME_UNIT(int TIME_UNIT) {
+		this.TIME_UNIT = TIME_UNIT;
 	}
 
 	@Override
