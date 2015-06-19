@@ -16,7 +16,12 @@ public abstract class StabTest {
 	// 持续时间
 	private int DurationTime = 8;
 
-	// 构造函数
+	/**
+	 * 构造函数
+	 * @param tps
+	 * @param ThreadNum
+	 * @param DurationTime
+	 */
 	public StabTest(int tps, int ThreadNum, int DurationTime) {
 		this.tps = tps;
 		this.ThreadNum = ThreadNum;

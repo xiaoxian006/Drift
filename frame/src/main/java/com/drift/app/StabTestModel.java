@@ -9,7 +9,7 @@ public abstract class StabTestModel extends TestModel {
 
 	private int TIME_UNIT;
 
-	// 稳定需要的qps
+	// 稳定需要的tps
 	public void setTIME_UNIT(int TIME_UNIT) {
 		this.TIME_UNIT = TIME_UNIT;
 	}

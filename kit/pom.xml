@@ -23,4 +23,9 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <directory>${basedir}/target</directory>
+    <finalName>${groupId}.${artifactId}-${version}</finalName>
+  </build>
 </project>

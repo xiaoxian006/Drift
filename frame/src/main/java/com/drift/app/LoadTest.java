@@ -12,7 +12,11 @@ public abstract class LoadTest {
 	//持续时间，设定默认时间为600s
 	public int time = 600;
 
-	// 构造函数
+	/**
+	 * 构造函数
+	 * @param StartThreadNum 起始线程数
+	 * @param LoadTime 每次测试时间
+	 */
 	public LoadTest(int StartThreadNum, int LoadTime) {
 		this.StartThreadNum = StartThreadNum;
 		this.time = LoadTime;
@@ -48,9 +52,5 @@ public abstract class LoadTest {
 			ptestExecutor.run();
 		}
 
-	}
-
-	public void setStartThreadNum(int startThreadNum) {
-		StartThreadNum = startThreadNum;
 	}
 }
